@@ -47,24 +47,19 @@ export default function TextForm(props) {
         handleSentenceClick();
         setText(newText);
     }
-    const handleInverseClick = (event) => {
-    let modifiedText = '';
-    for (let i = 0; i < text.length; i++) {
-        if (check === true) {
-            if (i % 2 === 0) {
-                modifiedText += text[i].toLowerCase();
-            } else {
-                modifiedText += text[i].toUpperCase();
-            }
-        }
-        else {
-            if (i % 2 !== 0) {
-                modifiedText += text[i].toLowerCase();
-            } else {
-                modifiedText += text[i].toUpperCase();
-            }
-        }
-    }
+    const handleInverseClick = () => {
+    setText(prevText => {
+        return prevText.split('').map((char, i) => {
+                if (check) {
+                    return i % 2 === 0 ? char.toLowerCase() : char.toUpperCase();
+                } else {
+                    return i % 2 === 0 ? char.toUpperCase() : char.toLowerCase();
+                }
+            }).join('');
+        });
+        setCheck(prev => !prev);
+    };
+
     check = !check;
     setText(modifiedText);
     };
